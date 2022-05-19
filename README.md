@@ -32,9 +32,9 @@ python main_validate.py --dataset Dataset --ckpt pathToModel --dist-url tcp://lo
 python main_test.py --dataset Dataset --gpu GPU --ckpt_bert pathToEncoder --ckpt_classifier pathToClassifier
 ```
 
-#Reference
+# Reference
 If the code is used in your research, hope you can cite our paper as follows:
-
+```
 @INPROCEEDINGS{9746499,
   author={Li, Shu’ang and Hu, Xuming and Lin, Li and Wen, Lijie},
   booktitle={ICASSP 2022 - 2022 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)}, 
@@ -44,3 +44,4 @@ If the code is used in your research, hope you can cite our paper as follows:
   number={},
   pages={8237-8241},
   doi={10.1109/ICASSP43922.2022.9746499}}
+  ```
