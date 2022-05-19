@@ -305,9 +305,9 @@ def main_worker(gpu, ngpus_per_node, args):
         processor = NLIProcessor(pickle.load(pkl))
 
     train_dataset = load_and_cache_examples(args, processor, tokenizer, "train", args.dataset)
-    dataset_size = len(train_dataset)
-    split_size = int(0.01*dataset_size)
-    train_dataset, _ = torch.utils.data.random_split(train_dataset, [split_size,dataset_size-split_size])
+    # dataset_size = len(train_dataset)
+    # split_size = int(0.01*dataset_size)
+    # train_dataset, _ = torch.utils.data.random_split(train_dataset, [split_size,dataset_size-split_size])
     if args.distributed:
         train_sampler = torch.utils.data.distributed.DistributedSampler(train_dataset)
     else:
