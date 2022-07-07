@@ -455,8 +455,8 @@ def validate(val_loader, model, classifier, criterion, epoch, args):
             batch = tuple(t.cuda() for t in batch)
             inputs = {"input_ids": batch[0], "attention_mask": batch[1], "token_type_ids": batch[2]}
             labels = batch[3]
-            features = model.encoder(**inputs)
-            logits = classifier(features[1])
+            features = model(**inputs)
+            logits = classifier(features.detach())
             loss = criterion(logits.view(-1, 3), labels.view(-1))
 
             # update metric
