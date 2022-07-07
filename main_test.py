@@ -76,9 +76,8 @@ def test(val_loader, model, classifier, args):
             # compute loss
             batch = tuple(t.cuda() for t in batch)
             inputs = {"input_ids": batch[0], "attention_mask": batch[1], "token_type_ids": batch[2]}
-            features = model.encoder(**inputs)
-
-            logits = classifier(features[1])
+            features = model(**inputs)
+            logits = classifier(features.detach())
             # update metric
             _, pred = logits.topk(1, 1, True, True)
             res["label"] += pred.t().cpu().numpy().tolist()[0]
