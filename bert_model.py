@@ -81,8 +81,9 @@ class PairSupConBert(nn.Module):
         self.pooler = nn.Sequential(nn.Linear(4*self.dim_mlp,self.dim_mlp),
                                     encoder.bert.pooler)
         self.head = nn.Sequential(nn.Linear(self.dim_mlp,self.dim_mlp),
-                                        nn.ReLU(inplace=True),
-                                        encoder.fc)
+                                        nn.ReLU(inplace=True))
+        self.fc_sup = encoder.fc
+        self.fc_ce = nn.Linear(self.dim_mlp, 3)
         
         
     def forward(self, input_ids=None, attention_mask=None, token_type_ids=None, position_ids=None, head_mask=None, inputs_embeds=None):
@@ -115,8 +116,8 @@ class PairSupConBert(nn.Module):
         pair_embeds = torch.cat([projected_premises, projected_hypotheses, projected_premises - projected_hypotheses, projected_premises * projected_hypotheses], dim=-1)
         pair_output = self.pooler(pair_embeds)
         if self.is_train:
-            feat = F.normalize(self.head(pair_output), dim=1)
-            return feat
+            feat = self.head(pair_output)
+            return F.normalize(self.fc_ce(feat),dim=1), F.normalize(self.fc_sup(feat),dim=1)
         else:
             return pair_output
             

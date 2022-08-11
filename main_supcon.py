@@ -156,9 +156,11 @@ def train(train_loader, model, criterion_sup, criterion_ce, optimizer, epoch, ar
         # compute loss
         batch = tuple(t.cuda() for t in batch)
         inputs = {"input_ids": batch[0], "attention_mask": batch[1], "token_type_ids": batch[2]}
-        features = model(**inputs)
-        # f1, f2 = torch.split(features, [bsz, bsz], dim=0)
-        loss = criterion_sup(features, batch[3]) + criterion_ce(features, batch[3])
+        feature1, feature2 = model(**inputs)
+        # print(feature1.shape, feature2.shape)
+        loss_ce = criterion_ce(feature1, batch[3])
+        loss_sup = criterion_sup(feature2, batch[3])
+        loss = loss_ce + loss_sup * args.alpha
 
         # update metric
         losses.update(loss.item(), bsz)
