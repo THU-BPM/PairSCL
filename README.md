@@ -1,6 +1,6 @@
 # PairSCL - pair-level supervised contrastive learning
 
-The source code of paper ["PAIR-LEVEL SUPERVISED CONTRASTIVE LEARNING FOR NATURAL LANGUAGE INFERENCE"](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9746499) published at ICASSP 2022.
+The source code of paper ["PAIR-LEVEL SUPERVISED CONTRASTIVE LEARNING FOR NATURAL LANGUAGE INFERENCE"](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9746499) at ICASSP 2022.
 
 ## Environments
 pytorch=1.8.1, transformers=4.2.1
